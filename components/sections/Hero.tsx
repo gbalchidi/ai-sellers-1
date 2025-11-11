@@ -1,93 +1,132 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { ArrowRight, CheckCircle2 } from 'lucide-react'
+import { ArrowRight, CheckCircle } from 'lucide-react'
+import Image from 'next/image'
+import { SignupForm } from '@/components/SignupForm'
 
 const Hero = () => {
-  const badges = [
-    'Контроль маржи по каждой фразе',
-    'Настройка за 15 минут',
-    'Оплата только за активные карточки',
-    'От 400₽ за карточку/мес'
-  ]
+  const [isFormOpen, setIsFormOpen] = useState(false)
 
   return (
-    <section className="relative min-h-screen flex items-center">
-      {/* Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
+    <>
+    <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white py-16 lg:py-20">
+      <div className="container mx-auto px-4">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
 
-      {/* Animated particles background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="particles-container" />
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="max-w-5xl mx-auto text-center"
-        >
-          {/* Main Heading */}
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            Контролируйте маржинальность каждой рекламной фразы
-          </h1>
-
-          {/* Subheading */}
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-            AI-агент, который покажет реальную прибыль с каждой карточки
-            и увеличит маржу на 30%
-          </p>
-
-          {/* Target Audience */}
-          <p className="text-lg text-muted-foreground mb-8">
-            Для селлеров с 50+ карточками на Wildberries.
-            Видите не просто ДРР, а реальную прибыль с учетом себестоимости.
-          </p>
-
-          {/* Trust Badges */}
-          <div className="flex flex-wrap gap-2 justify-center mb-8">
-            {badges.map((badge, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Badge variant="secondary" className="px-4 py-2 text-sm">
-                  <CheckCircle2 className="w-4 h-4 mr-2" />
-                  {badge}
-                </Badge>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* CTA Button */}
+          {/* Left: Copy */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-2xl"
           >
-            <Button
-              size="lg"
-              className="text-lg px-8 py-6 group"
-              onClick={() => {
-                const element = document.getElementById('calculator')
-                element?.scrollIntoView({ behavior: 'smooth' })
-              }}
-            >
-              Рассчитать стоимость для моих карточек
-              <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
-            </Button>
-            <p className="mt-4 text-sm text-muted-foreground">
-              14 дней бесплатного тестирования
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+              Вы теряете{" "}
+              <span className="text-red-600">20-40% бюджета</span>{" "}
+              на фразах, которые{" "}
+              <span className="underline decoration-wavy decoration-red-400">
+                КАЖУТСЯ
+              </span>{" "}
+              прибыльными
+            </h1>
+
+            <p className="text-base sm:text-lg md:text-xl text-slate-600 mb-4">
+              Хороший ДРР не значит прибыль. Фразы с низким процентом выкупа
+              "съедают" ваш бюджет, даже если ДРР выглядит хорошо (10-15%).
             </p>
+
+            <p className="text-sm sm:text-base md:text-lg text-slate-700 mb-8">
+              Мы показываем <strong>РЕАЛЬНУЮ маржинальность</strong> каждой
+              фразы с учетом % выкупа, комиссий и полной юнит-экономики.
+            </p>
+
+            {/* CTA */}
+            <div className="mb-8">
+              <Button
+                size="lg"
+                className="text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl transition-all w-full sm:w-auto"
+                onClick={() => {
+                  // Track CTA click
+                  if (typeof window !== 'undefined' && window.analytics) {
+                    window.analytics.track("CTA Clicked", {
+                      location: "hero",
+                      cta_text: "Найти убыточные фразы бесплатно"
+                    });
+                  }
+                  setIsFormOpen(true);
+                }}
+              >
+                Найти убыточные фразы бесплатно
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </div>
+
+            {/* Trust indicators */}
+            <div className="flex flex-col gap-2">
+              <div className="flex items-start gap-2 text-xs sm:text-sm text-slate-600">
+                <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                <span>500+ селлеров уже экономят 23,000₽/мес</span>
+              </div>
+              <div className="flex items-start gap-2 text-xs sm:text-sm text-slate-600">
+                <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                <span>Средняя экономия 34% рекламного бюджета</span>
+              </div>
+              <div className="flex items-start gap-2 text-xs sm:text-sm text-slate-600">
+                <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                <span>Подключение за 3 минуты</span>
+              </div>
+            </div>
           </motion.div>
-        </motion.div>
+
+          {/* Right: Visual */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="relative mt-8 lg:mt-0"
+          >
+            <div className="bg-white rounded-lg shadow-2xl p-4 sm:p-6">
+              <div className="bg-slate-50 rounded-lg p-3 sm:p-4">
+                <div className="text-center mb-4">
+                  <p className="text-xs sm:text-sm font-semibold text-slate-600">Фраза: "платье летнее"</p>
+                  <div className="mt-3 sm:mt-4 space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs sm:text-sm text-slate-600">ДРР:</span>
+                      <span className="text-base sm:text-lg font-bold text-green-600">15% ✓</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs sm:text-sm text-slate-600">% выкупа:</span>
+                      <span className="text-base sm:text-lg font-bold text-red-600">40% 🔴</span>
+                    </div>
+                    <div className="h-px bg-slate-300 my-2"></div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs sm:text-sm font-semibold text-slate-600">Реальная маржа:</span>
+                      <span className="text-lg sm:text-xl font-bold text-red-600">-8% (УБЫТОК!)</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating annotation */}
+              <div className="absolute -top-4 sm:-top-6 -right-2 sm:-right-6 bg-white p-3 sm:p-4 rounded-lg shadow-lg border-2 border-red-500 max-w-[200px] sm:max-w-none">
+                <p className="text-xs sm:text-sm font-semibold text-red-600">
+                  🔴 43 убыточные фразы найдены!
+                </p>
+                <p className="text-[10px] sm:text-xs text-slate-600">
+                  Потенциальная экономия: 23,340₽/мес
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
+
+    <SignupForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
+    </>
   )
 }
 
