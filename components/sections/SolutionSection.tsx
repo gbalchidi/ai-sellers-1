@@ -15,21 +15,31 @@ const SolutionSection = () => {
 
   const features = [
     {
-      icon: <Target className="h-8 w-8 text-blue-600" />,
+      icon: 'Target',
       title: '🎯 Учет % выкупа',
       description: 'Единственный инструмент, который показывает влияние % выкупа на маржинальность. Видите реальную прибыль, а не иллюзию из ДРР.'
     },
     {
-      icon: <Link className="h-8 w-8 text-blue-600" />,
+      icon: 'Link',
       title: '🔗 Кластеры фраз',
       description: 'Показываем связку ключевых слов в кластере. Если отключаете одну фразу — видите последствия для всех связанных.'
     },
     {
-      icon: <Zap className="h-8 w-8 text-blue-600" />,
+      icon: 'Zap',
       title: '⚡ Авто-расчет',
       description: 'Автоматически обновляем данные каждые 6 часов. Вам не нужно ничего делать. Просто смотрите результат и принимайте решения.'
     }
   ]
+
+  const getIcon = (iconName: string) => {
+    const iconProps = { className: "h-8 w-8 text-blue-600" }
+    switch(iconName) {
+      case 'Target': return <Target {...iconProps} />
+      case 'Link': return <Link {...iconProps} />
+      case 'Zap': return <Zap {...iconProps} />
+      default: return null
+    }
+  }
 
   return (
     <section ref={ref} className="py-20 bg-white">
@@ -41,7 +51,7 @@ const SolutionSection = () => {
           className="max-w-6xl mx-auto"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-            Мы показываем РЕАЛЬНУЮ маржинальность
+            Мы показываем реальную маржинальность
             <br />
             каждой рекламной фразы
           </h2>
@@ -61,7 +71,7 @@ const SolutionSection = () => {
                 transition={{ delay: index * 0.2 }}
               >
                 <Card className="p-6 h-full hover:shadow-lg transition-shadow">
-                  <div className="mb-4">{feature.icon}</div>
+                  <div className="mb-4">{getIcon(feature.icon)}</div>
                   <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
                   <p className="text-sm text-slate-600">{feature.description}</p>
                 </Card>

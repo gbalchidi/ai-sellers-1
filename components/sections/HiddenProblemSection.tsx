@@ -44,7 +44,7 @@ const HiddenProblemSection = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
             Главная проблема, которую игнорируют
             <br />
-            ВСЕ инструменты аналитики
+            все инструменты аналитики
           </h2>
           <p className="text-xl text-center text-slate-600 mb-12">
             Процент выкупа — критический фактор, который "ломает" всю экономику рекламы.
@@ -55,14 +55,14 @@ const HiddenProblemSection = () => {
           {/* Interactive Calculator */}
           <Card className="p-8 max-w-2xl mx-auto">
             <h3 className="text-2xl font-bold mb-6">
-              Посчитайте свои РЕАЛЬНЫЕ потери:
+              Посчитайте свои реальные потери:
             </h3>
 
             <div className="space-y-6">
               {/* Inputs */}
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <Label>Цена товара (₽)</Label>
+                  <Label className="mb-2">Цена товара (₽)</Label>
                   <Input
                     type="number"
                     value={price || ''}
@@ -71,7 +71,7 @@ const HiddenProblemSection = () => {
                   />
                 </div>
                 <div>
-                  <Label>Себестоимость (₽)</Label>
+                  <Label className="mb-2">Себестоимость (₽)</Label>
                   <Input
                     type="number"
                     value={cost || ''}
@@ -80,7 +80,7 @@ const HiddenProblemSection = () => {
                   />
                 </div>
                 <div>
-                  <Label>Комиссия WB (%)</Label>
+                  <Label className="mb-2">Комиссия WB (%)</Label>
                   <Input
                     type="number"
                     value={commission || ''}
@@ -89,7 +89,7 @@ const HiddenProblemSection = () => {
                   />
                 </div>
                 <div>
-                  <Label>Заказов через фразу</Label>
+                  <Label className="mb-2">Заказов через фразу</Label>
                   <Input
                     type="number"
                     value={orders || ''}
@@ -98,7 +98,7 @@ const HiddenProblemSection = () => {
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <Label>Расход на рекламу (₽)</Label>
+                  <Label className="mb-2">Расход на рекламу (₽)</Label>
                   <Input
                     type="number"
                     value={adSpend || ''}

@@ -122,18 +122,18 @@ const SocialProofSection = () => {
                         <div className="bg-red-50 p-4 rounded">
                           <p className="font-semibold mb-2">До:</p>
                           <ul className="text-sm space-y-1">
-                            <li>• Бюджет: {testimonial.before.budget}</li>
-                            <li>• ДРР: {testimonial.before.drr}</li>
-                            <li>• Прибыльность: {testimonial.before.profit}</li>
+                            <li>• Бюджет: {testimonial.before?.budget}</li>
+                            <li>• ДРР: {testimonial.before?.drr}</li>
+                            <li>• Прибыльность: {testimonial.before?.profit}</li>
                           </ul>
                         </div>
                         <div className="bg-green-50 p-4 rounded">
                           <p className="font-semibold mb-2">После (1 месяц):</p>
                           <ul className="text-sm space-y-1">
-                            <li>• Нашла: {testimonial.after.foundPhrases}</li>
-                            <li>• Сэкономила: {testimonial.after.saved}</li>
-                            <li>• ДРР: {testimonial.after.drr}</li>
-                            <li>• Маржа: {testimonial.after.marginGrowth}</li>
+                            <li>• Нашла: {testimonial.after?.foundPhrases}</li>
+                            <li>• Сэкономила: {testimonial.after?.saved}</li>
+                            <li>• ДРР: {testimonial.after?.drr}</li>
+                            <li>• Маржа: {testimonial.after?.marginGrowth}</li>
                           </ul>
                         </div>
                       </div>
@@ -147,9 +147,9 @@ const SocialProofSection = () => {
                       <div className="bg-green-50 p-4 rounded">
                         <p className="font-semibold mb-2">Результат за 2 месяца:</p>
                         <ul className="text-sm space-y-1">
-                          <li>✓ Экономия: {testimonial.results.saved}</li>
-                          <li>✓ ROI рекламы: {testimonial.results.roi}</li>
-                          <li>✓ {testimonial.results.satisfaction}</li>
+                          <li>✓ Экономия: {testimonial.results?.saved}</li>
+                          <li>✓ ROI рекламы: {testimonial.results?.roi}</li>
+                          <li>✓ {testimonial.results?.satisfaction}</li>
                         </ul>
                       </div>
                     </>
@@ -162,9 +162,9 @@ const SocialProofSection = () => {
                       <div className="bg-green-50 p-4 rounded mb-4">
                         <p className="font-semibold mb-2">Результат:</p>
                         <ul className="text-sm space-y-1">
-                          <li>✓ Сэкономила клиентам: {testimonial.results.clientSavings}</li>
-                          <li>✓ {testimonial.results.newClients}</li>
-                          <li>✓ {testimonial.results.rateIncrease}</li>
+                          <li>✓ Сэкономила клиентам: {testimonial.results?.clientSavings}</li>
+                          <li>✓ {testimonial.results?.newClients}</li>
+                          <li>✓ {testimonial.results?.rateIncrease}</li>
                         </ul>
                       </div>
                       <p className="text-slate-700 italic">"{testimonial.recommendation}"</p>

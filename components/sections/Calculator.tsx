@@ -17,6 +17,11 @@ interface CalculatorData {
 }
 
 const Calculator = () => {
+  // Функция для форматирования чисел с пробелами (одинаково на сервере и клиенте)
+  const formatNumber = (num: number) => {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+  }
+
   const [data, setData] = useState<CalculatorData>({
     cardsCount: 100,
     adBudget: 200000,
@@ -212,7 +217,7 @@ const Calculator = () => {
                       <div className="flex justify-between items-center">
                         <span className="text-muted-foreground">Инвестиция:</span>
                         <span className="font-bold">
-                          {(data.cardsCount * 500).toLocaleString('ru-RU')} ₽/мес
+                          {formatNumber(data.cardsCount * 500)} ₽/мес
                         </span>
                       </div>
                     </div>

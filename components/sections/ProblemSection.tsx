@@ -10,7 +10,7 @@ const ProblemSection = () => {
 
   const problems = [
     {
-      icon: <XCircle className="h-8 w-8 text-red-500" />,
+      icon: 'XCircle',
       title: 'Неполная картина',
       subtitle: 'Вы видите только ДРР, CPC, CTR',
       content: [
@@ -24,7 +24,7 @@ const ProblemSection = () => {
       ]
     },
     {
-      icon: <AlertTriangle className="h-8 w-8 text-amber-500" />,
+      icon: 'AlertTriangle',
       title: '⚠️ Скрытые потери',
       subtitle: 'Вы платите за все заказы',
       content: [
@@ -43,7 +43,7 @@ const ProblemSection = () => {
       ]
     },
     {
-      icon: <Clock className="h-8 w-8 text-blue-500" />,
+      icon: 'Clock',
       title: 'Нет времени считать',
       subtitle: 'Представим, что у вас 200+ активных фраз',
       content: [
@@ -58,6 +58,15 @@ const ProblemSection = () => {
       ]
     }
   ]
+
+  const getIcon = (iconName: string) => {
+    switch(iconName) {
+      case 'XCircle': return <XCircle className="h-8 w-8 text-red-500" />
+      case 'AlertTriangle': return <AlertTriangle className="h-8 w-8 text-amber-500" />
+      case 'Clock': return <Clock className="h-8 w-8 text-blue-500" />
+      default: return null
+    }
+  }
 
   return (
     <section ref={ref} className="py-12 bg-white">
@@ -83,7 +92,7 @@ const ProblemSection = () => {
                 transition={{ delay: index * 0.2 }}
               >
                 <Card className="p-4 sm:p-6 h-full hover:shadow-lg transition-shadow">
-                  <div className="mb-3 sm:mb-4">{problem.icon}</div>
+                  <div className="mb-3 sm:mb-4">{getIcon(problem.icon)}</div>
                   <h3 className="text-lg sm:text-xl font-bold mb-2">{problem.title}</h3>
                   <p className="text-xs sm:text-sm text-slate-600 font-semibold mb-3 sm:mb-4">{problem.subtitle}</p>
                   <div className="text-xs sm:text-sm text-slate-600 space-y-1">

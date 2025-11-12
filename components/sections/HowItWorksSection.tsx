@@ -15,7 +15,7 @@ const HowItWorksSection = () => {
   const steps = [
     {
       number: '1',
-      icon: <Key className="h-8 w-8 text-blue-600" />,
+      icon: 'Key',
       title: 'Подключение',
       description: 'Вводите API-ключ WB (2 минуты)',
       details: [
@@ -26,7 +26,7 @@ const HowItWorksSection = () => {
     },
     {
       number: '2',
-      icon: <FileUp className="h-8 w-8 text-blue-600" />,
+      icon: 'FileUp',
       title: 'Загрузка',
       description: 'Загружаете себестоимость (5 минут)',
       details: [
@@ -37,7 +37,7 @@ const HowItWorksSection = () => {
     },
     {
       number: '3',
-      icon: <Bot className="h-8 w-8 text-blue-600" />,
+      icon: 'Bot',
       title: 'Анализ',
       description: 'Система рассчитывает маржинальность для 200+ фраз (автоматически)',
       details: [
@@ -48,7 +48,7 @@ const HowItWorksSection = () => {
     },
     {
       number: '4',
-      icon: <MousePointer className="h-8 w-8 text-blue-600" />,
+      icon: 'MousePointer',
       title: 'Действие',
       description: 'Отключаете убыточные фразы в 1 клик',
       details: [
@@ -59,6 +59,17 @@ const HowItWorksSection = () => {
       ]
     }
   ]
+
+  const getIcon = (iconName: string) => {
+    const iconProps = { className: "h-8 w-8 text-blue-600" }
+    switch(iconName) {
+      case 'Key': return <Key {...iconProps} />
+      case 'FileUp': return <FileUp {...iconProps} />
+      case 'Bot': return <Bot {...iconProps} />
+      case 'MousePointer': return <MousePointer {...iconProps} />
+      default: return null
+    }
+  }
 
   return (
     <section ref={ref} className="py-20 bg-slate-50">
@@ -96,7 +107,7 @@ const HowItWorksSection = () => {
                   <Card className="p-4 sm:p-5 md:p-6 pt-8 sm:pt-10 h-full hover:shadow-lg transition-shadow">
                     <div className="text-center mb-3 sm:mb-4">
                       <div className="inline-block scale-75 sm:scale-100">
-                        {step.icon}
+                        {getIcon(step.icon)}
                       </div>
                     </div>
                     <h3 className="text-base sm:text-lg font-bold mb-2 text-center">{step.title}</h3>

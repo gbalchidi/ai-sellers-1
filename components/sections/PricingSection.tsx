@@ -4,32 +4,13 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { Check, Zap } from 'lucide-react'
 import { useInView } from 'react-intersection-observer'
 import { SignupForm } from '@/components/SignupForm'
 
 const PricingSection = () => {
   const { ref, inView } = useInView({ triggerOnce: true })
-  const [budget, setBudget] = useState(50000)
-  const [cardsCount, setCardsCount] = useState(30)
   const [isFormOpen, setIsFormOpen] = useState(false)
-
-  // Расчет стоимости по количеству карточек
-  const calculateCost = (cards: number) => {
-    if (cards <= 10) return cards * 1000
-    if (cards <= 50) return 10 * 1000 + (cards - 10) * 800
-    if (cards <= 150) return 10 * 1000 + 40 * 800 + (cards - 50) * 500
-    return 10 * 1000 + 40 * 800 + 100 * 500 + (cards - 150) * 400
-  }
-
-  // ROI калькулятор
-  const savings = budget * 0.2 // 20% экономии
-  const serviceCost = calculateCost(cardsCount)
-  const netBenefit = savings - serviceCost
-  const roi = serviceCost > 0 ? ((netBenefit / serviceCost) * 100).toFixed(0) : 0
-  const paybackDays = serviceCost > 0 ? Math.ceil((serviceCost / (savings / 30))).toFixed(0) : 0
 
   const plans = [
     {
@@ -164,70 +145,6 @@ const PricingSection = () => {
               </motion.div>
             ))}
           </div>
-
-          {/* ROI Calculator */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={inView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ delay: 0.6 }}
-          >
-            <Card className="p-4 sm:p-6 md:p-8 max-w-2xl mx-auto bg-gradient-to-r from-blue-50 to-green-50">
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-center">
-                💰 Рассчитайте окупаемость
-              </h3>
-
-              <div className="space-y-4">
-                <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
-                  <div>
-                    <Label className="text-sm sm:text-base md:text-lg">Ваш рекламный бюджет (₽/мес)</Label>
-                    <Input
-                      type="number"
-                      value={budget || ''}
-                      onChange={(e) => setBudget(e.target.value === '' ? 0 : Number(e.target.value))}
-                      onFocus={(e) => e.target.select()}
-                      className="text-base sm:text-lg mt-1"
-                    />
-                  </div>
-                  <div>
-                    <Label className="text-sm sm:text-base md:text-lg">Количество карточек с рекламой</Label>
-                    <Input
-                      type="number"
-                      value={cardsCount || ''}
-                      onChange={(e) => setCardsCount(e.target.value === '' ? 0 : Number(e.target.value))}
-                      onFocus={(e) => e.target.select()}
-                      className="text-base sm:text-lg mt-1"
-                      placeholder="Обычно 20% от всех"
-                    />
-                  </div>
-                </div>
-
-                <div className="bg-white p-3 sm:p-4 md:p-6 rounded-lg space-y-2">
-                  <div className="flex justify-between text-xs sm:text-sm md:text-base">
-                    <span>Средняя экономия (20%):</span>
-                    <span className="font-bold text-green-600">{savings.toLocaleString()}₽/мес</span>
-                  </div>
-                  <div className="flex justify-between text-xs sm:text-sm md:text-base">
-                    <span>Стоимость сервиса ({cardsCount} карточек):</span>
-                    <span className="font-bold">- {serviceCost.toLocaleString()}₽/мес</span>
-                  </div>
-                  <div className="h-px bg-slate-300 my-2"></div>
-                  <div className="flex justify-between text-sm sm:text-base md:text-lg">
-                    <span className="font-semibold">Ваша выгода:</span>
-                    <span className="font-bold text-green-600">{netBenefit.toLocaleString()}₽/мес</span>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3 sm:gap-4 text-center">
-                  <div className="bg-white p-3 sm:p-4 rounded-lg">
-                    <p className="text-xl sm:text-2xl md:text-3xl font-bold text-blue-600">ROI: {roi}% 🚀</p>
-                  </div>
-                  <div className="bg-white p-3 sm:p-4 rounded-lg">
-                    <p className="text-xl sm:text-2xl md:text-3xl font-bold text-green-600">Окупаемость: {paybackDays} дней</p>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </motion.div>
 
           {/* Guarantees */}
           <div className="mt-8 text-center space-y-2">
